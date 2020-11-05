@@ -336,6 +336,7 @@ namespace HotChocolate.Types.Spatial
         {
             // arrange
             INamedInputType type = CreateInputType(typeName);
+
             object? serialized = type.Serialize(_geometry);
 
             // act
@@ -393,6 +394,7 @@ namespace HotChocolate.Types.Spatial
         {
             // arrange
             INamedInputType type = CreateInputType(typeName);
+
             object? serialized = type.Serialize(_geometry);
 
             // act
@@ -529,11 +531,12 @@ namespace HotChocolate.Types.Spatial
 
         private ISchema CreateSchema() => SchemaBuilder.New()
             .AddSpatialTypes()
-            .AddQueryType(d => d
-                .Name("Query")
-                .Field("test")
-                .Argument("arg", a => a.Type<StringType>())
-                .Resolver("ghi"))
+            .AddQueryType(
+                d => d
+                    .Name("Query")
+                    .Field("test")
+                    .Argument("arg", a => a.Type<StringType>())
+                    .Resolver("ghi"))
             .Create();
 
         private static void AssertGeometry(object? obj, int? crs = null)
@@ -550,6 +553,7 @@ namespace HotChocolate.Types.Spatial
         private INamedInputType CreateInputType(string typeName)
         {
             ISchema schema = CreateSchema();
+
             return schema.GetType<INamedInputType>(typeName);
         }
     }

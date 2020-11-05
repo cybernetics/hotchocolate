@@ -599,6 +599,7 @@ namespace HotChocolate.Types.Spatial
             Assert.Equal(2, Assert.IsType<MultiPolygon>(obj).NumGeometries);
             Assert.Equal(4, Assert.IsType<MultiPolygon>(obj).Geometries[0].NumPoints);
             Assert.Equal(5, Assert.IsType<MultiPolygon>(obj).Geometries[1].NumPoints);
+
             Assert.Equal(30, Assert.IsType<MultiPolygon>(obj).Coordinates[0].X);
             Assert.Equal(20, Assert.IsType<MultiPolygon>(obj).Coordinates[0].Y);
             Assert.Equal(45, Assert.IsType<MultiPolygon>(obj).Coordinates[1].X);
@@ -617,6 +618,7 @@ namespace HotChocolate.Types.Spatial
         private INamedInputType CreateInputType(string typeName)
         {
             ISchema schema = CreateSchema();
+
             return schema.GetType<INamedInputType>(typeName);
         }
     }

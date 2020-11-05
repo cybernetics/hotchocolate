@@ -24,13 +24,14 @@ namespace HotChocolate.Types.Spatial
                 new IntValueNode(30),
                 new IntValueNode(10)));
 
-        private readonly Geometry _geometry = new MultiPoint(new[]
-        {
-            new Point(new Coordinate(10, 40)),
-            new Point(new Coordinate(40, 30)),
-            new Point(new Coordinate(20, 20)),
-            new Point(new Coordinate(30, 10)),
-        });
+        private readonly Geometry _geometry = new MultiPoint(
+            new[]
+            {
+                new Point(new Coordinate(10, 40)),
+                new Point(new Coordinate(40, 30)),
+                new Point(new Coordinate(20, 20)),
+                new Point(new Coordinate(30, 10)),
+            });
 
         private readonly string _geometryType = "MultiPoint";
 
@@ -546,11 +547,12 @@ namespace HotChocolate.Types.Spatial
 
         private ISchema CreateSchema() => SchemaBuilder.New()
             .AddSpatialTypes()
-            .AddQueryType(d => d
-                .Name("Query")
-                .Field("test")
-                .Argument("arg", a => a.Type<StringType>())
-                .Resolver("ghi"))
+            .AddQueryType(
+                d => d
+                    .Name("Query")
+                    .Field("test")
+                    .Argument("arg", a => a.Type<StringType>())
+                    .Resolver("ghi"))
             .Create();
 
         private static void AssertGeometry(object? obj, int? crs = null)
@@ -574,6 +576,7 @@ namespace HotChocolate.Types.Spatial
         private INamedInputType CreateInputType(string typeName)
         {
             ISchema schema = CreateSchema();
+
             return schema.GetType<INamedInputType>(typeName);
         }
     }

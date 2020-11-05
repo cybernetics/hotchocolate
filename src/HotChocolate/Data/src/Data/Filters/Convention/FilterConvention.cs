@@ -8,6 +8,7 @@ using HotChocolate.Internal;
 using HotChocolate.Resolvers;
 using HotChocolate.Types;
 using HotChocolate.Types.Descriptors;
+using HotChocolate.Types.Descriptors.Definitions;
 using HotChocolate.Utilities;
 using static HotChocolate.Data.DataResources;
 using static HotChocolate.Data.ThrowHelper;
@@ -98,7 +99,7 @@ namespace HotChocolate.Data.Filters
             {
                 IReadOnlyList<IFilterProviderExtension> extensions =
                     CollectExtensions(context.Services, Definition);
-                init.Initialize(context, this);
+                init.Initialize(context);
                 MergeExtensions(context, init, extensions);
                 init.OnComplete(context);
             }
@@ -282,7 +283,7 @@ namespace HotChocolate.Data.Filters
             return extensions;
         }
 
-        private void MergeExtensions(
+        private static void MergeExtensions(
             IConventionContext context,
             IFilterProviderConvention provider,
             IReadOnlyList<IFilterProviderExtension> extensions)
@@ -293,7 +294,7 @@ namespace HotChocolate.Data.Filters
                 {
                     if (extensions[m] is IFilterProviderConvention extensionConvention)
                     {
-                        extensionConvention.Initialize(context, this);
+                        extensionConvention.Initialize(context);
                         extensions[m].Merge(context, providerConvention);
                         extensionConvention.OnComplete(context);
                     }

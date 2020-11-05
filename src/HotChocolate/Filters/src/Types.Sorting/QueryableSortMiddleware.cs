@@ -25,9 +25,9 @@ namespace HotChocolate.Types.Sorting
         {
             await _next(context).ConfigureAwait(false);
 
-            IValueNode sortArgument = context.ArgumentLiteral<IValueNode>(_contextData.ArgumentName);
+            IValueNode sortArgument = context.Argument<IValueNode>(_contextData.ArgumentName);
 
-            if (sortArgument is NullValueNode)
+            if (sortArgument is null || sortArgument is NullValueNode)
             {
                 return;
             }
@@ -45,7 +45,8 @@ namespace HotChocolate.Types.Sorting
 
             if (source is not null &&
                 context.Field.Arguments[_contextData.ArgumentName].Type is InputObjectType iot &&
-                iot is ISortInputType { EntityType: not null! } fit)
+                iot is ISortInputType fit &&
+                fit.EntityType is { })
             {
                 var visitorCtx = new QueryableSortVisitorContext(
                     iot,

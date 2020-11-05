@@ -4,7 +4,7 @@ namespace HotChocolate.Data.Filters
 {
     internal interface IFilterProviderConvention
     {
-        internal void Initialize(IConventionContext context, IFilterConvention convention);
+        internal void Initialize(IConventionContext context);
 
         internal void OnComplete(IConventionContext context);
     }

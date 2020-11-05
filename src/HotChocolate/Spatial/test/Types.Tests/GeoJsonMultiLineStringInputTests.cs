@@ -54,6 +54,7 @@ namespace HotChocolate.Types.Spatial
             Assert.Equal(2, Assert.IsType<MultiLineString>(result).NumGeometries);
             Assert.Equal(3, Assert.IsType<MultiLineString>(result).Geometries[0].NumPoints);
             Assert.Equal(4, Assert.IsType<MultiLineString>(result).Geometries[1].NumPoints);
+
             Assert.Equal(10, Assert.IsType<MultiLineString>(result).Coordinates[0].X);
             Assert.Equal(10, Assert.IsType<MultiLineString>(result).Coordinates[0].Y);
             Assert.Equal(20, Assert.IsType<MultiLineString>(result).Coordinates[1].X);
@@ -81,6 +82,7 @@ namespace HotChocolate.Types.Spatial
             Assert.Equal(2, Assert.IsType<MultiLineString>(result).NumGeometries);
             Assert.Equal(3, Assert.IsType<MultiLineString>(result).Geometries[0].NumPoints);
             Assert.Equal(4, Assert.IsType<MultiLineString>(result).Geometries[1].NumPoints);
+
             Assert.Equal(10, Assert.IsType<MultiLineString>(result).Coordinates[0].X);
             Assert.Equal(10, Assert.IsType<MultiLineString>(result).Coordinates[0].Y);
             Assert.Equal(20, Assert.IsType<MultiLineString>(result).Coordinates[1].X);
@@ -167,11 +169,12 @@ namespace HotChocolate.Types.Spatial
         {
             // arrange
             ISchema schema = SchemaBuilder.New()
-                .AddQueryType(d => d
-                    .Name("Query")
-                    .Field("test")
-                    .Argument("arg", a => a.Type<GeoJsonMultiLineStringInputType>())
-                    .Resolver(ctx => ctx.ArgumentValue<MultiLineString>("arg").ToString()))
+                .AddQueryType(
+                    d => d
+                        .Name("Query")
+                        .Field("test")
+                        .Argument("arg", a => a.Type<GeoJsonMultiLineStringInputType>())
+                        .Resolver(ctx => ctx.ArgumentValue<MultiLineString>("arg").ToString()))
                 .Create();
 
             IRequestExecutor executor = schema.MakeExecutable();
@@ -193,16 +196,18 @@ namespace HotChocolate.Types.Spatial
 
         private ISchema CreateSchema() => SchemaBuilder.New()
             .AddConvention<INamingConventions, MockNamingConvention>()
-            .AddQueryType(d => d
-                .Name("Query")
-                .Field("test")
-                .Argument("arg", a => a.Type<GeoJsonMultiLineStringInputType>())
-                .Resolver("ghi"))
+            .AddQueryType(
+                d => d
+                    .Name("Query")
+                    .Field("test")
+                    .Argument("arg", a => a.Type<GeoJsonMultiLineStringInputType>())
+                    .Resolver("ghi"))
             .Create();
 
         private InputObjectType CreateInputType()
         {
             ISchema schema = CreateSchema();
+
             return schema.GetType<InputObjectType>("GeoJSONMultiLineStringInput");
         }
     }

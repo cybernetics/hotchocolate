@@ -17,11 +17,12 @@ namespace HotChocolate.Types.Spatial
             // arrange
             ISchema schema = SchemaBuilder.New()
                 .AddConvention<INamingConventions, MockNamingConvention>()
-                .AddQueryType(d => d
-                    .Name("Query")
-                    .Field("test")
-                    .Type<GeometryType>()
-                    .Resolver(_geom))
+                .AddQueryType(
+                    d => d
+                        .Name("Query")
+                        .Field("test")
+                        .Type<GeometryType>()
+                        .Resolver(_geom))
                 .Create();
 
             IRequestExecutor executor = schema.MakeExecutable();
@@ -42,10 +43,11 @@ namespace HotChocolate.Types.Spatial
                 .AddConvention<INamingConventions, MockNamingConvention>()
                 .BindClrType<Coordinate, GeoJsonPositionType>()
                 .AddType<GeoJsonPointType>()
-                .AddQueryType(d => d
-                    .Name("Query")
-                    .Field("test")
-                    .Resolver(_geom))
+                .AddQueryType(
+                    d => d
+                        .Name("Query")
+                        .Field("test")
+                        .Resolver(_geom))
                 .Create();
 
             IRequestExecutor executor = schema.MakeExecutable();
@@ -65,11 +67,12 @@ namespace HotChocolate.Types.Spatial
             ISchema schema = SchemaBuilder.New()
                 .AddConvention<INamingConventions, MockNamingConvention>()
                 .AddSpatialTypes()
-                .AddQueryType(d => d
-                    .Name("Query")
-                    .Field("test")
-                    .Type<GeoJsonPointType>()
-                    .Resolver(_geom))
+                .AddQueryType(
+                    d => d
+                        .Name("Query")
+                        .Field("test")
+                        .Type<GeoJsonPointType>()
+                        .Resolver(_geom))
                 .Create();
             IRequestExecutor executor = schema.MakeExecutable();
 
@@ -89,10 +92,11 @@ namespace HotChocolate.Types.Spatial
                 .AddConvention<INamingConventions, MockNamingConvention>()
                 .BindClrType<Coordinate, GeoJsonPositionType>()
                 .AddType<GeoJsonPointType>()
-                .AddQueryType(d => d
-                    .Name("Query")
-                    .Field("test")
-                    .Resolver(_geom))
+                .AddQueryType(
+                    d => d
+                        .Name("Query")
+                        .Field("test")
+                        .Resolver(_geom))
                 .Create();
 
             // act
